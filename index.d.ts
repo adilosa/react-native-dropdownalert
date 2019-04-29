@@ -49,6 +49,10 @@ export interface DropdownAlertProps {
       props: DropdownAlertProps,
       state: { type: string }
     ): ReactNode
+    renderNotification?(
+      props: DropdownAlertProps,
+      state: { type: string }
+    ): ReactNode
     testID?: string
     accessible?: boolean
     accessibilityLabel?: string

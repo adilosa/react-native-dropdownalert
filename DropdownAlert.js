@@ -53,6 +53,7 @@ export default class DropdownAlert extends Component {
     renderCancel: PropTypes.func,
     renderTitle: PropTypes.func,
     renderMessage: PropTypes.func,
+    renderNotification: PropTypes.func,
     testID: PropTypes.string,
     accessibilityLabel: PropTypes.string,
     accessible: PropTypes.bool,
@@ -140,6 +141,7 @@ export default class DropdownAlert extends Component {
     renderCancel: undefined,
     renderTitle: undefined,
     renderMessage: undefined,
+    renderNotification: undefined,
     testID: undefined,
     accessibilityLabel: undefined,
     accessible: false,
@@ -504,16 +506,22 @@ export default class DropdownAlert extends Component {
             accessibilityLabel={this.props.accessibilityLabel}
             accessible={this.props.accessible}
           >
-            <View style={style}>
-              <SafeAreaView style={StyleSheet.flatten(this.props.safeAreaStyle)}>
-                {this.renderImage(source)}
-                <View style={StyleSheet.flatten(this.props.defaultTextContainer)}>
-                  {this.renderTitle()}
-                  {this.renderMessage()}
+          {
+            this.props.renderNotification
+              ? this.props.renderNotification(this.props, this.state)
+              : (
+                <View style={style}>
+                  <SafeAreaView style={StyleSheet.flatten(this.props.safeAreaStyle)}>
+                    {this.renderImage(source)}
+                    <View style={StyleSheet.flatten(this.props.defaultTextContainer)}>
+                      {this.renderTitle()}
+                      {this.renderMessage()}
+                    </View>
+                  </SafeAreaView>
+                  {this.renderCancel(showCancel)}
                 </View>
-              </SafeAreaView>
-              {this.renderCancel(showCancel)}
-            </View>
+              )
+          }
           </TouchableOpacity>
         </Animated.View>
       );
